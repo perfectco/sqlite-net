@@ -2780,7 +2780,7 @@ namespace SQLite
 
 		static IntPtr NegativePointer = new IntPtr (-1);
 
-		const string DateTimeExactStoreFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fff";
+		const string DateTimeExactStoreFormat = "o";
 
 		internal static void BindParameter (Sqlite3Statement stmt, int index, object value, bool storeDateTimeAsTicks)
 		{
@@ -2894,7 +2894,7 @@ namespace SQLite
 					else {
 						var text = SQLite3.ColumnString (stmt, index);
 						DateTime resultDate;
-						if (!DateTime.TryParseExact (text, DateTimeExactStoreFormat, System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out resultDate)) {
+						if (!DateTime.TryParseExact (text, DateTimeExactStoreFormat, System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.RoundtripKind, out resultDate)) {
 							resultDate = DateTime.Parse (text);
 						}
 						return resultDate;
