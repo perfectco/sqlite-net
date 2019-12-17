@@ -2800,10 +2800,10 @@ namespace SQLite
 
 		public int ExecuteNonQuery (params object[] args)
 		{
-			ResetAndBind(args);
 			if (Connection.Trace) {
 				Connection.Tracer?.Invoke ("Executing: " + ToString(args));
 			}
+			ResetAndBind(args);
 
 			var r = SQLite3.Result.OK;
 			r = SQLite3.Step (Statement);
@@ -2825,10 +2825,10 @@ namespace SQLite
 
 		public IEnumerable<T> ExecuteDeferredQuery<T> (TableMapping map, params object[] args)
 		{
-			ResetAndBind(args);
 			if (Connection.Trace) {
 				Connection.Tracer?.Invoke ("Executing Query: " + ToString(args));
 			}
+			ResetAndBind(args);
 			var cols = new SQLite.TableMapping.Column[SQLite3.ColumnCount(Statement)];
 
 			for (int i = 0; i < cols.Length; i++) {
@@ -2857,10 +2857,10 @@ namespace SQLite
 
 		public T ExecuteScalar<T> (params object[] args)
 		{
-			ResetAndBind(args);
 			if (Connection.Trace) {
 				Connection.Tracer?.Invoke ("Executing Query: " + ToString(args));
 			}
+			ResetAndBind(args);
 
 			T val = default (T);
 
